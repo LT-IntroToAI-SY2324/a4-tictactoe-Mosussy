@@ -10,7 +10,37 @@ class TTTBoard:
             represent moves by player 'O' and '*'s are spots no one has yet played on
     """
 
-    pass
+    def __init__(self):
+        self.board = ["*"] * 9
+
+    def make_move(self, player, position):
+        if 0 <= position < 9 and self.board[position] == "*":
+            self.board[position] = player
+            return True
+        return False    
+
+
+    def has_won(self, player):
+        for s in range(3):
+            if all (self.board[s * 3 + j] == player for j in range(3)) or all(self.board[s + j * 3] == player for j in range(3)):
+                return True
+        if all (self.board[s * 4] == player for s in range(3)) or all(self.board[2 + s * 2] == player for s in range(3)):
+            return True
+        return False
+
+
+    def game_over(self):
+        return "*" not in self.board
+
+    def clear(self):
+        self.board = ["*"] * 9
+
+    def __str__(self) -> str:
+        s = ""
+        for i in (0, 3, 6):
+            s += " ".join(self.board[i:i + 3]) + "\n"
+        return s
+
 
 
 def play_tic_tac_toe() -> None:
@@ -86,7 +116,7 @@ if __name__ == "__main__":
     assert brd.has_won("O") == True
     assert brd.game_over() == True
 
-    print("All tests passed!")
+    #print("All tests passed!")
 
     # uncomment to play!
-    # play_tic_tac_toe()
+play_tic_tac_toe()
