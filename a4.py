@@ -21,10 +21,12 @@ class TTTBoard:
 
 
     def has_won(self, player):
-        for s in range(3):
-            if all (self.board[s * 3 + j] == player for j in range(3)) or all(self.board[s + j * 3] == player for j in range(3)):
+        #checks for wins in rows
+        for i in range(3):
+            if (self.board[i*3] == self.board[i*3+1] == self.board[i or self.board[i] == self.board[i+3] == self.board[i+6]]):
                 return True
-        if all (self.board[s * 4] == player for s in range(3)) or all(self.board[2 + s * 2] == player for s in range(3)):
+        #checks the for diaganol wins
+        if (self.board[0] == self.board[4] == self.board[8] == player or self.board[2] == self.board[4] == self.board[6] == player):
             return True
         return False
 
@@ -116,7 +118,7 @@ if __name__ == "__main__":
     assert brd.has_won("O") == True
     assert brd.game_over() == True
 
-    #print("All tests passed!")
+    print("All tests passed!")
 
     # uncomment to play!
 play_tic_tac_toe()
